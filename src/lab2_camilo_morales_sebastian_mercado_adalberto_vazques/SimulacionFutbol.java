@@ -18,11 +18,11 @@ public class SimulacionFutbol {
         cargarMatrizDeAdyacencia("matriz.csv", campo);
         
         
-                System.out.println("Directorio actual: " + new File(".").getAbsolutePath()); //Debug donde se están colocando los archivos CSV
+        System.out.println("Directorio actual: " + new File(".").getAbsolutePath()); //Debug donde se están colocando los archivos CSV
 
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Simulación de Movimiento Táctico en un Equipo de Fútbol");
+        System.out.println("Simulacion de Movimiento Tactico en un Equipo de Futbol");
 
         while (true) {
             System.out.print("Ingrese el nombre del jugador inicial: ");
@@ -36,15 +36,15 @@ public class SimulacionFutbol {
             List<Jugador> camino = campo.calcularCaminoOptimo(inicio, objetivo, estrategia);
 
             if (camino.isEmpty()) {
-                System.out.println("No se encontró un camino.");
+                System.out.println("No se encontro un camino.");
             } else {
-                System.out.println("Camino óptimo:");
+                System.out.println("Camino optimo:");
                 for (Jugador jugador : camino) {
                     System.out.println(jugador);
                 }
             }
 
-            System.out.print("¿Desea realizar otra simulación? (si/no): ");
+            System.out.print("¿Desea realizar otra simulacion? (si/no): ");
             String continuar = scanner.nextLine();
             if (!continuar.equalsIgnoreCase("si")) {
                 break;
