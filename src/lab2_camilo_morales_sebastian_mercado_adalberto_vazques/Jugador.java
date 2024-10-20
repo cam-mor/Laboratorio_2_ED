@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package lab2_camilo_morales_sebastian_mercado_adalberto_vazques;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author HP
- */
 public class Jugador {
+
     private String nombre;
     private int velocidad;
     private int remate;
@@ -55,5 +48,3 @@ public class Jugador {
         return nombre + " [Velocidad: " + velocidad + ", Remate: " + remate + ", Posesion: " + posesion + "]";
     }
 }
-    
-
