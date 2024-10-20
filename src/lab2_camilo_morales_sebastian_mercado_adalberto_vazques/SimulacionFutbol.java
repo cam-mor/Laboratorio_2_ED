@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package lab2_camilo_morales_sebastian_mercado_adalberto_vazques;
 
-/**
- *
- * @author HP
- */
 import java.io.*;
 import java.util.*;
 
@@ -16,10 +8,8 @@ public class SimulacionFutbol {
         Campo campo = new Campo();
         cargarJugadores("jugadores.csv", campo);
         cargarMatrizDeAdyacencia("matriz.csv", campo);
-        
-        
-        System.out.println("Directorio actual: " + new File(".").getAbsolutePath()); //Debug donde se están colocando los archivos CSV
 
+        System.out.println("Directorio actual: " + new File(".").getAbsolutePath());  // Debug para verificar la ruta de archivos CSV
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Simulacion de Movimiento Tactico en un Equipo de Futbol");
@@ -44,7 +34,7 @@ public class SimulacionFutbol {
                 }
             }
 
-            System.out.print("¿Desea realizar otra simulacion? (si/no): ");
+            System.out.print("Desea realizar otra simulacion? (si/no): ");
             String continuar = scanner.nextLine();
             if (!continuar.equalsIgnoreCase("si")) {
                 break;
@@ -54,23 +44,29 @@ public class SimulacionFutbol {
         scanner.close();
     }
 
+    // Método para cargar los jugadores desde un archivo CSV
     private static void cargarJugadores(String archivo, Campo campo) {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
-                String nombre = datos[0];
-                int velocidad = Integer.parseInt(datos[1]);
-                int remate = Integer.parseInt(datos[2]);
-                int posesion = Integer.parseInt(datos[3]);
-                Jugador jugador = new Jugador(nombre, velocidad, remate, posesion);
-                campo.agregarJugador(jugador);
+                if (datos.length == 4) {
+                    String nombre = datos[0];
+                    int velocidad = Integer.parseInt(datos[1]);
+                    int remate = Integer.parseInt(datos[2]);
+                    int posesion = Integer.parseInt(datos[3]);
+                    Jugador jugador = new Jugador(nombre, velocidad, remate, posesion);
+                    campo.agregarJugador(jugador);
+                } else {
+                    System.out.println("Linea mal formateada: " + linea);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    // Método para cargar la matriz de adyacencia desde un archivo CSV
     private static void cargarMatrizDeAdyacencia(String archivo, Campo campo) {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
@@ -88,5 +84,3 @@ public class SimulacionFutbol {
         }
     }
 }
-
-

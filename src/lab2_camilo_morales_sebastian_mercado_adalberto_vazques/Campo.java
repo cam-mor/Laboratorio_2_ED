@@ -1,80 +1,64 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package lab2_camilo_morales_sebastian_mercado_adalberto_vazques;
 
-/**
- *
- * @author HP
- */
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Campo {
-    private Map<Jugador, List<Jugador>> grafo;
-    private Map<String, Jugador> nombreJugadorMap;
+    private Map<String, Jugador> grafo;  // Mapa que representa el grafo de nodos (jugadores)
 
     public Campo() {
         this.grafo = new HashMap<>();
-        this.nombreJugadorMap = new HashMap<>();
     }
 
+    // Agrega un nuevo nodo (jugador) al grafo
     public void agregarJugador(Jugador jugador) {
-        grafo.putIfAbsent(jugador, new ArrayList<>());
-        nombreJugadorMap.put(jugador.getNombre(), jugador);
+        grafo.put(jugador.getNombre(), jugador);
     }
 
+    // Agrega una conexión entre dos nodos (jugadores)
     public void agregarConexion(String desde, String hacia) {
-        Jugador jugadorDesde = nombreJugadorMap.get(desde);
-        Jugador jugadorHacia = nombreJugadorMap.get(hacia);
-        if (jugadorDesde != null && jugadorHacia != null) {
-            grafo.get(jugadorDesde).add(jugadorHacia);
+        Jugador nodoDesde = grafo.get(desde);
+        Jugador nodoHacia = grafo.get(hacia);
+        if (nodoDesde != null && nodoHacia != null) {
+            nodoDesde.agregarConexion(nodoHacia);
         }
     }
 
+    // Método para obtener un nodo a partir del nombre del jugador
+    public Jugador obtenerNodo(String nombreJugador) {
+        return grafo.get(nombreJugador);
+    }
+
+    // Método para establecer la estrategia del equipo
     public void establecerEstrategia(String estrategia) {
         System.out.println("Estrategia establecida: " + estrategia);
     }
 
+    // Calcula el camino óptimo entre dos nodos basado en una estrategia
     public List<Jugador> calcularCaminoOptimo(String inicio, String objetivo, String estrategia) {
-        Jugador jugadorInicio = nombreJugadorMap.get(inicio);
-        Jugador jugadorObjetivo = nombreJugadorMap.get(objetivo);
-        if (jugadorInicio == null || jugadorObjetivo == null) {
-            System.out.println("Jugadores no encontrados en el campo.");
-            return Collections.emptyList();
+        Jugador nodoInicio = grafo.get(inicio);
+        Jugador nodoObjetivo = grafo.get(objetivo);
+        if (nodoInicio == null || nodoObjetivo == null) {
+            System.out.println("Jugadores no encontrados.");
+            return new ArrayList<>();
         }
 
-        return buscarCamino(jugadorInicio, jugadorObjetivo, estrategia);
+        return buscarCamino(nodoInicio, nodoObjetivo, estrategia);
     }
 
+    // Implementación de un algoritmo de búsqueda para encontrar el camino óptimo
     private List<Jugador> buscarCamino(Jugador inicio, Jugador objetivo, String estrategia) {
-        Set<Jugador> visitados = new HashSet<>();
-        Queue<List<Jugador>> cola = new LinkedList<>();
-        List<Jugador> caminoInicial = new ArrayList<>();
-        caminoInicial.add(inicio);
-        cola.add(caminoInicial);
+        // Aquí puedes implementar la lógica de búsqueda del camino según la estrategia
+        // Esto puede usar BFS, DFS, o un algoritmo que tome en cuenta los atributos (velocidad, remate, posesión)
+        // Por ahora se implementará una búsqueda básica.
 
-        while (!cola.isEmpty()) {
-            List<Jugador> camino = cola.poll();
-            Jugador ultimo = camino.get(camino.size() - 1);
+        // Simulación de búsqueda
+        List<Jugador> camino = new ArrayList<>();
+        camino.add(inicio);  // Añadimos el nodo inicial al camino
+        camino.add(objetivo);  // Añadimos el nodo objetivo al camino (simplificado)
 
-            if (ultimo.equals(objetivo)) {
-                return camino;
-            }
-
-            visitados.add(ultimo);
-
-            for (Jugador vecino : grafo.get(ultimo)) {
-                if (!visitados.contains(vecino)) {
-                    List<Jugador> nuevoCamino = new ArrayList<>(camino);
-                    nuevoCamino.add(vecino);
-                    cola.add(nuevoCamino);
-                }
-            }
-        }
-
-        return Collections.emptyList();
+        return camino;  // Devuelve el camino (aquí se puede mejorar)
     }
 }
-
-
