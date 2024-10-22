@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class SimulacionFutbol {
+
     public static void main(String[] args) {
         Campo campo = new Campo();
         cargarJugadores("jugadores.csv", campo);
@@ -51,14 +52,24 @@ public class SimulacionFutbol {
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
                 if (datos.length == 4) {
-                    String nombre = datos[0];
-                    int velocidad = Integer.parseInt(datos[1]);
-                    int remate = Integer.parseInt(datos[2]);
-                    int posesion = Integer.parseInt(datos[3]);
-                    Jugador jugador = new Jugador(nombre, velocidad, remate, posesion);
-                    campo.agregarJugador(jugador);
+                    try {
+                        String nombre = datos[0];
+                        int velocidad = Integer.parseInt(datos[1]);
+                        int remate = Integer.parseInt(datos[2]);
+                        int posesion = Integer.parseInt(datos[3]);
+
+                        if (velocidad < 0 || velocidad > 100 || remate < 0 || remate > 100 || posesion < 0 || posesion > 100) {
+                            System.out.println("Error: Atributos fuera de rango (0-100) para el jugador: " + nombre);
+                            continue;
+                        }
+
+                        Jugador jugador = new Jugador(nombre, velocidad, remate, posesion);
+                        campo.agregarJugador(jugador);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Formato incorrecto en la línea: " + linea);
+                    }
                 } else {
-                    System.out.println("Linea mal formateada: " + linea);
+                    System.out.println("Error: Línea mal formateada: " + linea);
                 }
             }
         } catch (IOException e) {
