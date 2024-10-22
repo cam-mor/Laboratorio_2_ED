@@ -113,4 +113,8 @@ public class Campo {
                 return 1;  // Si no hay estrategia definida, se usa un costo fijo
         }
     }
+
+    public Jugador obtenerJugador(String nombreJugador) {
+        return grafo.get(nombreJugador);  // Devuelve el jugador si existe, o null si no está en el grafo
+    }
 }
