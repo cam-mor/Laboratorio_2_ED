@@ -1,15 +1,19 @@
 package lab2_camilo_morales_sebastian_mercado_adalberto_vazques;
 
+import Interfaz.Inicio;
 import java.io.*;
 import java.util.*;
 
 public class SimulacionFutbol {
-
+    
     public static void main(String[] args) {
+        Inicio n = new Inicio();
+        n.setVisible(true);
+        
         Campo campo = new Campo();
         cargarJugadores("jugadores.csv", campo);
         cargarMatrizDeAdyacencia("matriz.csv", campo);
-
+        
         System.out.println("-----------------------------------");
         System.out.println("Directorio actual: " + new File(".").getAbsolutePath());  // Debug para verificar la ruta de archivos CSV
         System.out.println("-----------------------------------");
@@ -20,7 +24,7 @@ public class SimulacionFutbol {
         System.out.println("Simulacion de Movimiento Tactico en un Equipo de Futbol");
         System.out.println("-----------------------------------");
         System.out.println("");
-
+        
         while (true) {
             String inicio;
             String objetivo;
@@ -61,10 +65,10 @@ public class SimulacionFutbol {
                     System.out.println("Estrategia no valida. Por favor, ingrese una de las siguientes opciones: velocidad, posesion, remate.");
                 }
             }
-
+            
             campo.establecerEstrategia(estrategia);
             List<Jugador> camino = campo.calcularCaminoOptimo(inicio, objetivo, estrategia);
-
+            
             if (camino.isEmpty()) {
                 System.out.println("No se encontro un camino.");
             } else {
@@ -84,7 +88,7 @@ public class SimulacionFutbol {
                     System.out.println("Respuesta no valida. Por favor, ingrese 'si' o 'no'.");
                 }
             }
-
+            
             if (continuar.equalsIgnoreCase("no")) {
                 break;  // Finalizar el ciclo si la respuesta es "no"
             }
@@ -103,7 +107,7 @@ public class SimulacionFutbol {
         //
 
         System.out.println("Lista de jugadores disponibles:");
-
+        
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -125,7 +129,7 @@ public class SimulacionFutbol {
 
                         // Imprimir en consola los detalles del jugador
                         System.out.println("Jugador: " + nombre + " [" + ANSI_RED + "| Velocidad: " + velocidad + " | " + reset + "- " + ANSI_YELLOW + "| Remate: " + remate + " | " + reset + "- " + ANSI_GREEN + "| Posesion: " + posesion + " | " + reset + "]");
-
+                        
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Formato incorrecto en la línea: " + linea);
                     }
