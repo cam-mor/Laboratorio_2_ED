@@ -76,7 +76,7 @@ public class Campo {
         if (camino.isEmpty()) {
             System.out.println("No se encontro un camino.");
         } else {
-            System.out.println("Tamaño del camino: " + camino.size());
+            System.out.println("Tamanio del camino: " + camino.size());
             for (Jugador jugador : camino) {
                 System.out.println("En el camino: " + jugador.getNombre());
             }
@@ -140,12 +140,22 @@ public class Campo {
                 }
             }
         }
+        System.out.println("Distancias finales:");
+        for (Map.Entry<Jugador, Double> entry : distancias.entrySet()) {
+            System.out.println("Jugador: " + entry.getKey().getNombre() + ", Distancia: " + entry.getValue());
+        }
+
+        System.out.println("Predecesores finales:");
+        for (Map.Entry<Jugador, Jugador> entry : predecesores.entrySet()) {
+            System.out.println("Jugador: " + entry.getKey().getNombre() + ", Predecesor: "
+                    + (entry.getValue() != null ? entry.getValue().getNombre() : "null"));
+        }
 
         // Reconstruir el camino desde la portería hacia el inicio usando el mapa de predecesores
         List<Jugador> camino = new ArrayList<>();
         for (Jugador at = porteria; at != null; at = predecesores.get(at)) {
             camino.add(at);
-            System.out.println("Añadiendo al camino: " + at.getNombre());
+            System.out.println("Aniadiendo al camino: " + at.getNombre());
         }
 
         // Si no hay camino, devolver una lista vacía
@@ -160,17 +170,17 @@ public class Campo {
     }
 
     private double calcularPeso(Jugador actual, Jugador vecino, String estrategia) {
-        switch (estrategia.toLowerCase()) {
-            case "velocidad":
-                return (100.0 / actual.getVelocidad() + 100.0 / vecino.getVelocidad()) / 2;
-            case "posesion":
-                return (100.0 / actual.getPosesion() + 100.0 / vecino.getPosesion()) / 2;
-            case "remate":
-                return (100.0 / actual.getRemate() + 100.0 / vecino.getRemate()) / 2;
-            default:
-                return 1.0;  // Peso uniforme si la estrategia no coincide
-        }
+    switch (estrategia.toLowerCase()) {
+        case "velocidad":
+            return vecino.getNombre().equals("Porteria") ? 0.5 : (100.0 / vecino.getVelocidad());
+        case "posesion":
+            return vecino.getNombre().equals("Porteria") ? 0.5 : (100.0 / vecino.getPosesion());
+        case "remate":
+            return vecino.getNombre().equals("Porteria") ? 0.5 : (100.0 / vecino.getRemate());
+        default:
+            return 1.0;  // Peso uniforme si la estrategia no coincide
     }
+}
 
     public Jugador obtenerJugador(String nombreJugador) {
         return grafo.get(nombreJugador);  // Devuelve el jugador si existe, o null si no está en el grafo

@@ -70,7 +70,7 @@ public class Cancha extends javax.swing.JFrame {
                 BtListaJugadoresActionPerformed(evt);
             }
         });
-        jPanel1.add(BtListaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, -1, -1));
+        jPanel1.add(BtListaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 407, 50, 50));
 
         Jugador1TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,11 +91,12 @@ public class Cancha extends javax.swing.JFrame {
         });
         jPanel1.add(BtIniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, -1, 120));
 
+        ResultadoTextArea.setEditable(false);
         ResultadoTextArea.setColumns(20);
         ResultadoTextArea.setRows(5);
         jScrollPane1.setViewportView(ResultadoTextArea);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, -1, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, 320, 140));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/CanchaFutbol1.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 460));
@@ -134,7 +135,6 @@ public class Cancha extends javax.swing.JFrame {
 
     private void BtIniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtIniciarSimulacionActionPerformed
         String inicio = Jugador1TextField.getText();
-
         String estrategia = EstrategiaTextField.getText();
 
         if (campo.obtenerJugador(inicio) == null) {
@@ -156,10 +156,14 @@ public class Cancha extends javax.swing.JFrame {
         if (camino.isEmpty()) {
             ResultadoTextArea.setText("No se encontro un camino.");
         } else {
-            StringBuilder resultado = new StringBuilder("Camino optimo:\n");
+            StringBuilder resultado = new StringBuilder();
+            resultado.append("Camino optimo encontrado!\n");
+            resultado.append("Tamaño del camino: ").append(camino.size()).append("\n\n");
+
             for (Jugador jugador : camino) {
-                resultado.append(jugador.getNombre()).append("\n");
+                resultado.append("En el camino: ").append(jugador.getNombre()).append("\n");
             }
+
             ResultadoTextArea.setText(resultado.toString());
         }
     }//GEN-LAST:event_BtIniciarSimulacionActionPerformed
