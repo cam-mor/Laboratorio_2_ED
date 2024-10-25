@@ -38,6 +38,7 @@ public class Cancha extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         BtRegresar = new javax.swing.JButton();
         BtListaJugadores = new javax.swing.JButton();
+        BtCanchaJugadores = new javax.swing.JButton();
         Jugador1TextField = new javax.swing.JTextField();
         EstrategiaTextField = new javax.swing.JTextField();
         BtIniciarSimulacion = new javax.swing.JButton();
@@ -71,6 +72,17 @@ public class Cancha extends javax.swing.JFrame {
             }
         });
         jPanel1.add(BtListaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 407, 50, 50));
+
+        BtCanchaJugadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoCancha.png"))); // NOI18N
+        BtCanchaJugadores.setBorderPainted(false);
+        BtCanchaJugadores.setContentAreaFilled(false);
+        BtCanchaJugadores.setFocusable(false);
+        BtCanchaJugadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtCanchaJugadoresActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtCanchaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, -1));
 
         Jugador1TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,6 +180,13 @@ public class Cancha extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtIniciarSimulacionActionPerformed
 
+    private void BtCanchaJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtCanchaJugadoresActionPerformed
+        this.setVisible(false);
+
+        CanchaJugadores BtCanchaJugadores = new CanchaJugadores();
+        BtCanchaJugadores.setVisible(true);
+    }//GEN-LAST:event_BtCanchaJugadoresActionPerformed
+
     private void cargarJugadores() {
         SimulacionFutbol.cargarJugadores("jugadores.csv", campo);
         SimulacionFutbol.agregarPorteria(campo); // Agregar el nodo "Porteria" después de cargar jugadores
@@ -211,6 +230,7 @@ public class Cancha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtCanchaJugadores;
     private javax.swing.JButton BtIniciarSimulacion;
     private javax.swing.JButton BtListaJugadores;
     private javax.swing.JButton BtRegresar;
