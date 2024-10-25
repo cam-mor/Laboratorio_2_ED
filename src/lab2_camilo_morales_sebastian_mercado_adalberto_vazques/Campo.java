@@ -5,24 +5,32 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Set;
 
 public class Campo {
 
     private Map<String, Jugador> grafo;  // Mapa que representa el grafo de nodos (jugadores)
+    private List<String> jugadoresPorIndice;
 
     public Campo() {
         this.grafo = new HashMap<>();
+        this.jugadoresPorIndice = new ArrayList<>();
     }
 
     // Agrega un nuevo nodo (jugador) al grafo
     public void agregarJugador(Jugador jugador) {
         grafo.put(jugador.getNombre(), jugador);
+        jugadoresPorIndice.add(jugador.getNombre());
+    }
+
+    public String obtenerJugadorPorIndice(int indice) {
+        if (indice >= 0 && indice < jugadoresPorIndice.size()) {
+            return jugadoresPorIndice.get(indice);
+        }
+        return null;  // Retorna null si el índice es inválido
     }
 
     // Agrega una conexión entre dos nodos (jugadores)
@@ -125,6 +133,10 @@ public class Campo {
                     distancias.put(vecino, nuevaDistancia);
                     predecesores.put(vecino, actual);
                     cola.add(vecino);
+
+                    System.out.println("Actualizando distancia para " + vecino.getNombre() + " a " + nuevaDistancia);
+                    System.out.println("Predecesor de " + vecino.getNombre() + " es " + actual.getNombre());
+
                 }
             }
         }
@@ -133,6 +145,7 @@ public class Campo {
         List<Jugador> camino = new ArrayList<>();
         for (Jugador at = porteria; at != null; at = predecesores.get(at)) {
             camino.add(at);
+            System.out.println("Añadiendo al camino: " + at.getNombre());
         }
 
         // Si no hay camino, devolver una lista vacía

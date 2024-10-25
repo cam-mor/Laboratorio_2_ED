@@ -14,7 +14,7 @@ import lab2_camilo_morales_sebastian_mercado_adalberto_vazques.SimulacionFutbol;
  * @author ADALBERTO
  */
 public class Cancha extends javax.swing.JFrame {
-    
+
     private Campo campo;
 
     /**
@@ -134,7 +134,7 @@ public class Cancha extends javax.swing.JFrame {
 
     private void BtIniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtIniciarSimulacionActionPerformed
         String inicio = Jugador1TextField.getText();
-        
+
         String estrategia = EstrategiaTextField.getText();
 
         if (campo.obtenerJugador(inicio) == null) {
@@ -142,9 +142,9 @@ public class Cancha extends javax.swing.JFrame {
             return;
         }
 
-        if (!estrategia.equalsIgnoreCase("velocidad") &&
-            !estrategia.equalsIgnoreCase("posesion") &&
-            !estrategia.equalsIgnoreCase("remate")) {
+        if (!estrategia.equalsIgnoreCase("velocidad")
+                && !estrategia.equalsIgnoreCase("posesion")
+                && !estrategia.equalsIgnoreCase("remate")) {
             ResultadoTextArea.setText("Error: Estrategia no valida.");
             return;
         }
@@ -163,12 +163,14 @@ public class Cancha extends javax.swing.JFrame {
             ResultadoTextArea.setText(resultado.toString());
         }
     }//GEN-LAST:event_BtIniciarSimulacionActionPerformed
-    
-    private void cargarJugadores(){
+
+    private void cargarJugadores() {
         SimulacionFutbol.cargarJugadores("jugadores.csv", campo);
+        SimulacionFutbol.agregarPorteria(campo); // Agregar el nodo "Porteria" después de cargar jugadores
         SimulacionFutbol.cargarMatrizDeAdyacencia("matriz.csv", campo);
-        SimulacionFutbol.agregarPorteria(campo);
+
     }
+
     /**
      * @param args the command line arguments
      */

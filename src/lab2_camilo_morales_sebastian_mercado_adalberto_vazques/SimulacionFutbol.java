@@ -119,22 +119,14 @@ public class SimulacionFutbol {
     // Método para cargar la matriz de adyacencia desde un archivo CSV
     public static void cargarMatrizDeAdyacencia(String archivo, Campo campo) {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            List<String> nombres = new ArrayList<>();
-
-            // Primera línea contiene los nombres de los jugadores
-            String header = br.readLine();
-            if (header != null) {
-                nombres.addAll(Arrays.asList(header.split(",")));
-            }
-
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
-                String jugador = datos[0];
+                String jugador = datos[0];  // El primer elemento es el nombre del jugador
 
                 for (int i = 1; i < datos.length; i++) {
                     if (datos[i].equals("1")) {
-                        String nombreVecino = nombres.get(i);
+                        String nombreVecino = campo.obtenerJugadorPorIndice(i - 1);
                         campo.agregarConexion(jugador, nombreVecino);
                         System.out.println("Conexion establecida: " + jugador + " -> " + nombreVecino);  // Depuración
                     }
@@ -148,8 +140,9 @@ public class SimulacionFutbol {
     public static void agregarPorteria(Campo campo) {
         Jugador porteria = new Jugador("Porteria", 0, 0, 0);  // Nodo especial sin atributos
         campo.agregarJugador(porteria);
-
         campo.agregarConexion("Procyon", "Porteria");
+        campo.agregarConexion("Porteria", "Procyon");
         campo.agregarConexion("Archenar", "Porteria");
+        campo.agregarConexion("Porteria", "Archenar");
     }
 }
