@@ -58,62 +58,120 @@ public class Campo {
         if (jugadorInicio == null || porteria == null) {
             System.out.println("Jugador o porteria no encontrado.");
             return new ArrayList<>();
+        } else {
+            System.out.println("sirve?");
         }
 
-        // Lógica para calcular el camino óptimo (se puede usar BFS, DFS o Dijkstra dependiendo de la estrategia)
-        // Aquí puedes implementar una versión básica de BFS como ejemplo
-        return buscarCamino(jugadorInicio, porteria, estrategia);
+        //Se aplica Dijkstra
+        List<Jugador> camino = buscarCaminoDijkstra(jugadorInicio, porteria, estrategia);
+
+        if (camino.isEmpty()) {
+            System.out.println("No se encontro un camino.");
+        } else {
+            System.out.println("Tamaño del camino: " + camino.size());
+            for (Jugador jugador : camino) {
+                System.out.println("En el camino: " + jugador.getNombre());
+            }
+        }
+
+        return camino;
     }
 
     // Implementación de un algoritmo de búsqueda para encontrar el camino óptimo
-    private List<Jugador> buscarCamino(Jugador inicio, Jugador objetivo, String estrategia) {
-        // Mapa para guardar las distancias mínimas de cada jugador desde el nodo de inicio
-        Queue<Jugador> cola = new LinkedList<>();
-        Map<Jugador, Jugador> predecesor = new HashMap<>();
-        Set<Jugador> visitado = new HashSet<>();
+    private List<Jugador> buscarCaminoDijkstra(Jugador inicio, Jugador porteria, String estrategia) {
+        // Mapa para almacenar las distancias mínimas desde el inicio a cada jugador
+        Map<Jugador, Double> distancias = new HashMap<>();
+        Map<Jugador, Jugador> predecesores = new HashMap<>();
+        PriorityQueue<Jugador> cola = new PriorityQueue<>(Comparator.comparingDouble(distancias::get));
+        Set<Jugador> visitados = new HashSet<>();
 
+        // Inicializar las distancias: 0 para el inicio, infinito para los demás
+        for (Jugador jugador : grafo.values()) {
+            distancias.put(jugador, Double.MAX_VALUE);
+        }
+        distancias.put(inicio, 0.0);
         cola.add(inicio);
-        visitado.add(inicio);
 
         while (!cola.isEmpty()) {
             Jugador actual = cola.poll();
 
-            if (actual.equals(objetivo)) {
-                // Se encontró el camino
-                List<Jugador> camino = new ArrayList<>();
-                for (Jugador at = objetivo; at != null; at = predecesor.get(at)) {
-                    camino.add(at);
-                }
-                Collections.reverse(camino);  // Invertir para obtener el camino desde el inicio
-                return camino;
+            // Si ya hemos visitado este nodo, lo ignoramos
+            if (!visitados.add(actual)) {
+                continue;
             }
 
+            // Depuración: Imprimir el jugador que se está procesando
+            System.out.println("Procesando jugador: " + actual.getNombre());
+
+            // Si llegamos a la portería, terminamos
+            if (actual.equals(porteria)) {
+                break;
+            }
+
+            // Explorar las conexiones (vecinos) del jugador actual
             for (Jugador vecino : actual.getConexiones()) {
-                if (!visitado.contains(vecino)) {
-                    predecesor.put(vecino, actual);
-                    visitado.add(vecino);
+                System.out.println("Vecino: " + vecino.getNombre());  // Depuración
+
+                if (visitados.contains(vecino)) {
+                    continue;
+                }
+
+                // Calculamos el "peso" de la conexión según la estrategia
+                double peso = calcularPeso(actual, vecino, estrategia);
+
+                // Relajación de la arista
+                double nuevaDistancia = distancias.get(actual) + peso;
+                if (nuevaDistancia < distancias.get(vecino)) {
+                    distancias.put(vecino, nuevaDistancia);
+                    predecesores.put(vecino, actual);
                     cola.add(vecino);
                 }
             }
         }
-        return new ArrayList<>();  // Si no se encuentra camino
+
+        // Reconstruir el camino desde la portería hacia el inicio usando el mapa de predecesores
+        List<Jugador> camino = new ArrayList<>();
+        for (Jugador at = porteria; at != null; at = predecesores.get(at)) {
+            camino.add(at);
+        }
+
+        // Si no hay camino, devolver una lista vacía
+        if (camino.isEmpty() || camino.get(camino.size() - 1) != inicio) {
+            System.out.println("No se pudo reconstruir el camino desde la porteria.");
+            return new ArrayList<>();  // No se encontró camino
+        }
+
+        // Invertir el camino para que vaya del inicio a la portería
+        Collections.reverse(camino);
+        return camino;
     }
 
-    private int calcularCosto(Jugador actual, Jugador vecino, String estrategia) {
-        // Calculamos el costo entre dos nodos basado en la estrategia seleccionada
+    private double calcularPeso(Jugador actual, Jugador vecino, String estrategia) {
         switch (estrategia.toLowerCase()) {
             case "velocidad":
-                return 100 - vecino.getVelocidad();  // Prioriza la velocidad más alta
-            case "remate":
-                return 100 - vecino.getRemate();  // Prioriza la habilidad de remate más alta
+                return (100.0 / actual.getVelocidad() + 100.0 / vecino.getVelocidad()) / 2;
             case "posesion":
-                return 100 - vecino.getPosesion();  // Prioriza la posesión más alta
+                return (100.0 / actual.getPosesion() + 100.0 / vecino.getPosesion()) / 2;
+            case "remate":
+                return (100.0 / actual.getRemate() + 100.0 / vecino.getRemate()) / 2;
             default:
-                return 1;  // Si no hay estrategia definida, se usa un costo fijo
+                return 1.0;  // Peso uniforme si la estrategia no coincide
         }
     }
 
     public Jugador obtenerJugador(String nombreJugador) {
         return grafo.get(nombreJugador);  // Devuelve el jugador si existe, o null si no está en el grafo
     }
+
+    //Clase depuradora
+    public void imprimirGrafo() {
+        for (String nombre : grafo.keySet()) {
+            Jugador jugador = grafo.get(nombre);
+            System.out.println("Jugador: " + nombre);
+            for (Jugador conexion : jugador.getConexiones()) {
+                System.out.println("  Conectado a: " + conexion.getNombre());
+            }
+        }
+    }
+
 }

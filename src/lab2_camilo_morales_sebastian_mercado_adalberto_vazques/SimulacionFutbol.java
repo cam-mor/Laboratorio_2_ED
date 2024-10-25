@@ -13,6 +13,8 @@ public class SimulacionFutbol {
         Campo campo = new Campo();
         cargarJugadores("jugadores.csv", campo);
         cargarMatrizDeAdyacencia("matriz.csv", campo);
+        agregarPorteria(campo);  // Añadir nodo "Porteria" y conexiones
+        campo.imprimirGrafo();
 
         System.out.println("Directorio actual: " + new File(".").getAbsolutePath());  // Debug para verificar la ruta de archivos CSV
 
@@ -21,7 +23,7 @@ public class SimulacionFutbol {
         System.out.println("Simulacion de Movimiento Tactico en un Equipo de Futbol");
 
         while (true) {
-            String inicio;            
+            String inicio;
             String estrategia;
             String continuar;
 
@@ -82,9 +84,7 @@ public class SimulacionFutbol {
         //Colores
         String ANSI_GREEN = "\033[32;1m";
         String ANSI_RED = "\u001B[31m";
-        String ANSI_BLUE = "\u001B[34m";
         String reset = "\033[0m";
-        String ANSI_MAGENTA = "\u001B[35m";
         String ANSI_YELLOW = "\u001B[33m";
         //
 
@@ -95,28 +95,20 @@ public class SimulacionFutbol {
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
                 if (datos.length == 4) {
-                    try {
-                        String nombre = datos[0];
-                        int velocidad = Integer.parseInt(datos[1]);
-                        int remate = Integer.parseInt(datos[2]);
-                        int posesion = Integer.parseInt(datos[3]);
-                        // Validación de rango de los atributos
-                        if (velocidad < 0 || velocidad > 100 || remate < 0 || remate > 100 || posesion < 0 || posesion > 100) {
-                            System.out.println("Error: Atributos fuera de rango (0-100) para el jugador: " + nombre);
-                            continue;
-                        }
-                        // Crear y agregar el jugador al campo
-                        Jugador jugador = new Jugador(nombre, velocidad, remate, posesion);
-                        campo.agregarJugador(jugador);
 
-                        // Imprimir en consola los detalles del jugador
-                        System.out.println("Jugador: " + nombre + " [" + ANSI_RED + "| Velocidad: " + velocidad + " | " + reset + "- " + ANSI_YELLOW + "| Remate: " + remate + " | " + reset + "- " + ANSI_GREEN + "| Posesion: " + posesion + " | " + reset + "]");
+                    String nombre = datos[0];
+                    int velocidad = Integer.parseInt(datos[1]);
+                    int remate = Integer.parseInt(datos[2]);
+                    int posesion = Integer.parseInt(datos[3]);
 
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error: Formato incorrecto en la línea: " + linea);
-                    }
-                } else {
-                    System.out.println("Error: Línea mal formateada: " + linea);
+                    // Crear y agregar el jugador al campo
+                    Jugador jugador = new Jugador(nombre, velocidad, remate, posesion);
+                    campo.agregarJugador(jugador);
+                    System.out.println("Jugador cargado: " + nombre);  // Depuración
+
+                    // Imprimir en consola los detalles del jugador
+                    System.out.println("Jugador: " + nombre + " [" + ANSI_RED + "| Velocidad: " + velocidad + " | " + reset + "- " + ANSI_YELLOW + "| Remate: " + remate + " | " + reset + "- " + ANSI_GREEN + "| Posesion: " + posesion + " | " + reset + "]");
+
                 }
             }
         } catch (IOException e) {
@@ -127,18 +119,37 @@ public class SimulacionFutbol {
     // Método para cargar la matriz de adyacencia desde un archivo CSV
     public static void cargarMatrizDeAdyacencia(String archivo, Campo campo) {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            List<String> nombres = new ArrayList<>();
+
+            // Primera línea contiene los nombres de los jugadores
+            String header = br.readLine();
+            if (header != null) {
+                nombres.addAll(Arrays.asList(header.split(",")));
+            }
+
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
                 String jugador = datos[0];
+
                 for (int i = 1; i < datos.length; i++) {
                     if (datos[i].equals("1")) {
-                        campo.agregarConexion(jugador, "Jugador" + i);
+                        String nombreVecino = nombres.get(i);
+                        campo.agregarConexion(jugador, nombreVecino);
+                        System.out.println("Conexion establecida: " + jugador + " -> " + nombreVecino);  // Depuración
                     }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void agregarPorteria(Campo campo) {
+        Jugador porteria = new Jugador("Porteria", 0, 0, 0);  // Nodo especial sin atributos
+        campo.agregarJugador(porteria);
+
+        campo.agregarConexion("Procyon", "Porteria");
+        campo.agregarConexion("Archenar", "Porteria");
     }
 }

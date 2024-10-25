@@ -167,6 +167,7 @@ public class Cancha extends javax.swing.JFrame {
     private void cargarJugadores(){
         SimulacionFutbol.cargarJugadores("jugadores.csv", campo);
         SimulacionFutbol.cargarMatrizDeAdyacencia("matriz.csv", campo);
+        SimulacionFutbol.agregarPorteria(campo);
     }
     /**
      * @param args the command line arguments
