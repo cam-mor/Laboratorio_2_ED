@@ -1,11 +1,16 @@
 package lab2_camilo_morales_sebastian_mercado_adalberto_vazques;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
 
 public class Campo {
 
@@ -46,58 +51,52 @@ public class Campo {
     }
 
     // Calcula el camino óptimo entre dos nodos basado en una estrategia
-    public List<Jugador> calcularCaminoOptimo(String inicio, String objetivo, String estrategia) {
-        Jugador nodoInicio = grafo.get(inicio);
-        Jugador nodoObjetivo = grafo.get(objetivo);
-        if (nodoInicio == null || nodoObjetivo == null) {
-            System.out.println("Jugadores no encontrados.");
+    public List<Jugador> calcularCaminoOptimo(String inicio, String estrategia) {
+        Jugador jugadorInicio = obtenerJugador(inicio);
+        Jugador porteria = obtenerJugador("Porteria");
+
+        if (jugadorInicio == null || porteria == null) {
+            System.out.println("Jugador o porteria no encontrado.");
             return new ArrayList<>();
         }
 
-        return buscarCamino(nodoInicio, nodoObjetivo, estrategia);
+        // Lógica para calcular el camino óptimo (se puede usar BFS, DFS o Dijkstra dependiendo de la estrategia)
+        // Aquí puedes implementar una versión básica de BFS como ejemplo
+        return buscarCamino(jugadorInicio, porteria, estrategia);
     }
 
     // Implementación de un algoritmo de búsqueda para encontrar el camino óptimo
     private List<Jugador> buscarCamino(Jugador inicio, Jugador objetivo, String estrategia) {
         // Mapa para guardar las distancias mínimas de cada jugador desde el nodo de inicio
-        Map<Jugador, Integer> distancias = new HashMap<>();
-        Map<Jugador, Jugador> predecesores = new HashMap<>();
-        PriorityQueue<Jugador> colaPrioridad = new PriorityQueue<>(Comparator.comparingInt(distancias::get));
+        Queue<Jugador> cola = new LinkedList<>();
+        Map<Jugador, Jugador> predecesor = new HashMap<>();
+        Set<Jugador> visitado = new HashSet<>();
 
-        // Inicializar las distancias con valores altos (infinito)
-        for (Jugador jugador : grafo.values()) {
-            distancias.put(jugador, Integer.MAX_VALUE);
-        }
-        distancias.put(inicio, 0);
-        colaPrioridad.add(inicio);
+        cola.add(inicio);
+        visitado.add(inicio);
 
-        while (!colaPrioridad.isEmpty()) {
-            Jugador actual = colaPrioridad.poll();
+        while (!cola.isEmpty()) {
+            Jugador actual = cola.poll();
 
             if (actual.equals(objetivo)) {
-                break;  // Camino encontrado
+                // Se encontró el camino
+                List<Jugador> camino = new ArrayList<>();
+                for (Jugador at = objetivo; at != null; at = predecesor.get(at)) {
+                    camino.add(at);
+                }
+                Collections.reverse(camino);  // Invertir para obtener el camino desde el inicio
+                return camino;
             }
 
             for (Jugador vecino : actual.getConexiones()) {
-                int nuevoCosto = distancias.get(actual) + calcularCosto(actual, vecino, estrategia);
-
-                if (nuevoCosto < distancias.get(vecino)) {
-                    distancias.put(vecino, nuevoCosto);
-                    predecesores.put(vecino, actual);
-                    colaPrioridad.add(vecino);
+                if (!visitado.contains(vecino)) {
+                    predecesor.put(vecino, actual);
+                    visitado.add(vecino);
+                    cola.add(vecino);
                 }
             }
         }
-
-        // Reconstruir el camino desde el nodo objetivo hacia el nodo de inicio
-        List<Jugador> camino = new ArrayList<>();
-        Jugador paso = objetivo;
-        while (paso != null) {
-            camino.add(0, paso);  // Añadimos al principio del camino
-            paso = predecesores.get(paso);
-        }
-
-        return camino;
+        return new ArrayList<>();  // Si no se encuentra camino
     }
 
     private int calcularCosto(Jugador actual, Jugador vecino, String estrategia) {

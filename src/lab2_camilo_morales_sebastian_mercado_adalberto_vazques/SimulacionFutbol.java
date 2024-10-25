@@ -5,27 +5,23 @@ import java.io.*;
 import java.util.*;
 
 public class SimulacionFutbol {
-    
+
     public static void main(String[] args) {
         Inicio n = new Inicio();
         n.setVisible(true);
-        
+
         Campo campo = new Campo();
         cargarJugadores("jugadores.csv", campo);
         cargarMatrizDeAdyacencia("matriz.csv", campo);
-        
-        
+
         System.out.println("Directorio actual: " + new File(".").getAbsolutePath());  // Debug para verificar la ruta de archivos CSV
-        
-        
+
         Scanner scanner = new Scanner(System.in);
-        
+
         System.out.println("Simulacion de Movimiento Tactico en un Equipo de Futbol");
-        
-        
+
         while (true) {
-            String inicio;
-            String objetivo;
+            String inicio;            
             String estrategia;
             String continuar;
 
@@ -34,17 +30,6 @@ public class SimulacionFutbol {
                 System.out.print("Ingrese el nombre del jugador inicial: ");
                 inicio = scanner.nextLine();
                 if (campo.obtenerJugador(inicio) != null) {  // Verificar que el jugador exista
-                    break;
-                } else {
-                    System.out.println("Jugador no encontrado. Por favor, ingrese un nombre valido.");
-                }
-            }
-
-            // Validación para el jugador objetivo
-            while (true) {
-                System.out.print("Ingrese el nombre del jugador objetivo: ");
-                objetivo = scanner.nextLine();
-                if (campo.obtenerJugador(objetivo) != null) {  // Verificar que el jugador exista
                     break;
                 } else {
                     System.out.println("Jugador no encontrado. Por favor, ingrese un nombre valido.");
@@ -63,10 +48,9 @@ public class SimulacionFutbol {
                     System.out.println("Estrategia no valida. Por favor, ingrese una de las siguientes opciones: velocidad, posesion, remate.");
                 }
             }
-            
             campo.establecerEstrategia(estrategia);
-            List<Jugador> camino = campo.calcularCaminoOptimo(inicio, objetivo, estrategia);
-            
+            List<Jugador> camino = campo.calcularCaminoOptimo(inicio, estrategia);
+
             if (camino.isEmpty()) {
                 System.out.println("No se encontro un camino.");
             } else {
@@ -86,7 +70,7 @@ public class SimulacionFutbol {
                     System.out.println("Respuesta no valida. Por favor, ingrese 'si' o 'no'.");
                 }
             }
-            
+
             if (continuar.equalsIgnoreCase("no")) {
                 break;  // Finalizar el ciclo si la respuesta es "no"
             }
@@ -105,7 +89,7 @@ public class SimulacionFutbol {
         //
 
         System.out.println("Lista de jugadores disponibles:");
-        
+
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -127,7 +111,7 @@ public class SimulacionFutbol {
 
                         // Imprimir en consola los detalles del jugador
                         System.out.println("Jugador: " + nombre + " [" + ANSI_RED + "| Velocidad: " + velocidad + " | " + reset + "- " + ANSI_YELLOW + "| Remate: " + remate + " | " + reset + "- " + ANSI_GREEN + "| Posesion: " + posesion + " | " + reset + "]");
-                        
+
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Formato incorrecto en la línea: " + linea);
                     }

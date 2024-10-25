@@ -39,13 +39,11 @@ public class Cancha extends javax.swing.JFrame {
         BtRegresar = new javax.swing.JButton();
         BtListaJugadores = new javax.swing.JButton();
         Jugador1TextField = new javax.swing.JTextField();
-        Jugador2TextField = new javax.swing.JTextField();
         EstrategiaTextField = new javax.swing.JTextField();
         BtIniciarSimulacion = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ResultadoTextArea = new javax.swing.JTextArea();
         label1 = new java.awt.Label();
-        label2 = new java.awt.Label();
         label3 = new java.awt.Label();
         label4 = new java.awt.Label();
 
@@ -75,13 +73,6 @@ public class Cancha extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Jugador1TextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 120, -1));
-
-        Jugador2TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Jugador2TextFieldActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Jugador2TextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 120, -1));
         jPanel1.add(EstrategiaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 120, -1));
 
         BtIniciarSimulacion.setText("Simular!");
@@ -98,11 +89,8 @@ public class Cancha extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, -1, -1));
 
-        label1.setText("Primer jugador");
+        label1.setText("Jugador");
         jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 110, -1));
-
-        label2.setText("Segundo jugador");
-        jPanel1.add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, -1, -1));
 
         label3.setText("Estrategia");
         jPanel1.add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, -1, -1));
@@ -142,35 +130,31 @@ public class Cancha extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Jugador1TextFieldActionPerformed
 
-    private void Jugador2TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Jugador2TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Jugador2TextFieldActionPerformed
-
     private void BtIniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtIniciarSimulacionActionPerformed
         String inicio = Jugador1TextField.getText();
-        String objetivo = Jugador2TextField.getText();
+        
         String estrategia = EstrategiaTextField.getText();
 
-        if (campo.obtenerJugador(inicio) == null || campo.obtenerJugador(objetivo) == null) {
-            ResultadoTextArea.setText("Error: Uno de los jugadores no existe.");
+        if (campo.obtenerJugador(inicio) == null) {
+            ResultadoTextArea.setText("Error: Jugador no encontrado");
             return;
         }
 
         if (!estrategia.equalsIgnoreCase("velocidad") &&
             !estrategia.equalsIgnoreCase("posesion") &&
             !estrategia.equalsIgnoreCase("remate")) {
-            ResultadoTextArea.setText("Error: Estrategia no válida.");
+            ResultadoTextArea.setText("Error: Estrategia no valida.");
             return;
         }
 
-        // Lógica de simulación
+        // Llamar a la lógica de cálculo del camino hasta la portería   
         campo.establecerEstrategia(estrategia);
-        List<Jugador> camino = campo.calcularCaminoOptimo(inicio, objetivo, estrategia);
+        List<Jugador> camino = campo.calcularCaminoOptimo(inicio, estrategia);
 
         if (camino.isEmpty()) {
-            ResultadoTextArea.setText("No se encontró un camino.");
+            ResultadoTextArea.setText("No se encontro un camino.");
         } else {
-            StringBuilder resultado = new StringBuilder("Camino óptimo:\n");
+            StringBuilder resultado = new StringBuilder("Camino optimo:\n");
             for (Jugador jugador : camino) {
                 resultado.append(jugador.getNombre()).append("\n");
             }
@@ -223,12 +207,10 @@ public class Cancha extends javax.swing.JFrame {
     private javax.swing.JButton BtRegresar;
     private javax.swing.JTextField EstrategiaTextField;
     private javax.swing.JTextField Jugador1TextField;
-    private javax.swing.JTextField Jugador2TextField;
     private javax.swing.JTextArea ResultadoTextArea;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
-    private java.awt.Label label2;
     private java.awt.Label label3;
     private java.awt.Label label4;
     // End of variables declaration//GEN-END:variables
