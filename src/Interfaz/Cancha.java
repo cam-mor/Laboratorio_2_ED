@@ -51,21 +51,26 @@ public class Cancha extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        BtRegresar.setText("Regresa");
+        BtRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/GoBackButton.png"))); // NOI18N
+        BtRegresar.setToolTipText("");
+        BtRegresar.setBorderPainted(false);
+        BtRegresar.setContentAreaFilled(false);
         BtRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jPanel1.add(BtRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        BtListaJugadores.setText("Lista de jugadores");
+        BtListaJugadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/JugadorFutbolIcono.png"))); // NOI18N
+        BtListaJugadores.setBorderPainted(false);
+        BtListaJugadores.setContentAreaFilled(false);
         BtListaJugadores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtListaJugadoresActionPerformed(evt);
             }
         });
-        jPanel1.add(BtListaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        jPanel1.add(BtListaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         Jugador1TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -27,32 +27,35 @@ public class Inicio extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         BtInicio = new javax.swing.JButton();
         BtSalir = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("BIENVENIDOS");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 80, 30));
-
-        BtInicio.setText("Inicio");
+        BtInicio.setBorderPainted(false);
+        BtInicio.setContentAreaFilled(false);
         BtInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtInicioActionPerformed(evt);
             }
         });
-        jPanel1.add(BtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, -1, -1));
+        jPanel1.add(BtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 170, 70));
 
-        BtSalir.setText("Salir");
+        BtSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ExitButton3.png"))); // NOI18N
+        BtSalir.setBorderPainted(false);
+        BtSalir.setContentAreaFilled(false);
         BtSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(BtSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, -1, -1));
+        jPanel1.add(BtSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/EstadioImagen.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 460));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,7 +120,7 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtInicio;
     private javax.swing.JButton BtSalir;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
