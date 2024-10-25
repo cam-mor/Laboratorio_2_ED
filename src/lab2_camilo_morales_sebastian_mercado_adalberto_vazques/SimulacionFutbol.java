@@ -14,16 +14,14 @@ public class SimulacionFutbol {
         cargarJugadores("jugadores.csv", campo);
         cargarMatrizDeAdyacencia("matriz.csv", campo);
         
-        System.out.println("-----------------------------------");
+        
         System.out.println("Directorio actual: " + new File(".").getAbsolutePath());  // Debug para verificar la ruta de archivos CSV
-        System.out.println("-----------------------------------");
-        System.out.println("");
+        
         
         Scanner scanner = new Scanner(System.in);
-        System.out.println("-----------------------------------");
+        
         System.out.println("Simulacion de Movimiento Tactico en un Equipo de Futbol");
-        System.out.println("-----------------------------------");
-        System.out.println("");
+        
         
         while (true) {
             String inicio;
@@ -96,7 +94,7 @@ public class SimulacionFutbol {
     }
     // Método para cargar los jugadores desde un archivo CSV
 
-    private static void cargarJugadores(String archivo, Campo campo) {
+    public static void cargarJugadores(String archivo, Campo campo) {
         //Colores
         String ANSI_GREEN = "\033[32;1m";
         String ANSI_RED = "\u001B[31m";
@@ -143,7 +141,7 @@ public class SimulacionFutbol {
     }
 
     // Método para cargar la matriz de adyacencia desde un archivo CSV
-    private static void cargarMatrizDeAdyacencia(String archivo, Campo campo) {
+    public static void cargarMatrizDeAdyacencia(String archivo, Campo campo) {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {

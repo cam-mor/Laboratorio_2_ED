@@ -4,17 +4,26 @@
  */
 package Interfaz;
 
+import lab2_camilo_morales_sebastian_mercado_adalberto_vazques.Campo;
+import lab2_camilo_morales_sebastian_mercado_adalberto_vazques.Jugador;
+import java.util.List;
+import lab2_camilo_morales_sebastian_mercado_adalberto_vazques.SimulacionFutbol;
+
 /**
  *
  * @author ADALBERTO
  */
 public class Cancha extends javax.swing.JFrame {
+    
+    private Campo campo;
 
     /**
      * Creates new form Cancha
      */
     public Cancha() {
         initComponents();
+        campo = new Campo();
+        cargarJugadores();
     }
 
     /**
@@ -28,7 +37,17 @@ public class Cancha extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         BtRegresar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        BtListaJugadores = new javax.swing.JButton();
+        Jugador1TextField = new javax.swing.JTextField();
+        Jugador2TextField = new javax.swing.JTextField();
+        EstrategiaTextField = new javax.swing.JTextField();
+        BtIniciarSimulacion = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ResultadoTextArea = new javax.swing.JTextArea();
+        label1 = new java.awt.Label();
+        label2 = new java.awt.Label();
+        label3 = new java.awt.Label();
+        label4 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,31 +59,66 @@ public class Cancha extends javax.swing.JFrame {
                 BtRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+        jPanel1.add(BtRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        jButton1.setText("Lista de jugadores");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BtListaJugadores.setText("Lista de jugadores");
+        BtListaJugadores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BtListaJugadoresActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        jPanel1.add(BtListaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+
+        Jugador1TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Jugador1TextFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Jugador1TextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 120, -1));
+
+        Jugador2TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Jugador2TextFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Jugador2TextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 120, -1));
+        jPanel1.add(EstrategiaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 120, -1));
+
+        BtIniciarSimulacion.setText("Simular!");
+        BtIniciarSimulacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtIniciarSimulacionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtIniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, 20));
+
+        ResultadoTextArea.setColumns(20);
+        ResultadoTextArea.setRows(5);
+        jScrollPane1.setViewportView(ResultadoTextArea);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, -1, -1));
+
+        label1.setText("Primer jugador");
+        jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 110, -1));
+
+        label2.setText("Segundo jugador");
+        jPanel1.add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, -1, -1));
+
+        label3.setText("Estrategia");
+        jPanel1.add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, -1, -1));
+
+        label4.setText("Resultado:");
+        jPanel1.add(label4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
         );
 
         pack();
@@ -73,17 +127,61 @@ public class Cancha extends javax.swing.JFrame {
     private void BtRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtRegresarActionPerformed
         this.setVisible(false);
 
-        Inicio I = new Inicio();
-        I.setVisible(true);
+        Inicio BtInicio = new Inicio();
+        BtInicio.setVisible(true);
     }//GEN-LAST:event_BtRegresarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BtListaJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtListaJugadoresActionPerformed
         this.setVisible(false);
 
         Lista_Jugadores List = new Lista_Jugadores();
         List.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BtListaJugadoresActionPerformed
 
+    private void Jugador1TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Jugador1TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Jugador1TextFieldActionPerformed
+
+    private void Jugador2TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Jugador2TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Jugador2TextFieldActionPerformed
+
+    private void BtIniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtIniciarSimulacionActionPerformed
+        String inicio = Jugador1TextField.getText();
+        String objetivo = Jugador2TextField.getText();
+        String estrategia = EstrategiaTextField.getText();
+
+        if (campo.obtenerJugador(inicio) == null || campo.obtenerJugador(objetivo) == null) {
+            ResultadoTextArea.setText("Error: Uno de los jugadores no existe.");
+            return;
+        }
+
+        if (!estrategia.equalsIgnoreCase("velocidad") &&
+            !estrategia.equalsIgnoreCase("posesion") &&
+            !estrategia.equalsIgnoreCase("remate")) {
+            ResultadoTextArea.setText("Error: Estrategia no válida.");
+            return;
+        }
+
+        // Lógica de simulación
+        campo.establecerEstrategia(estrategia);
+        List<Jugador> camino = campo.calcularCaminoOptimo(inicio, objetivo, estrategia);
+
+        if (camino.isEmpty()) {
+            ResultadoTextArea.setText("No se encontró un camino.");
+        } else {
+            StringBuilder resultado = new StringBuilder("Camino óptimo:\n");
+            for (Jugador jugador : camino) {
+                resultado.append(jugador.getNombre()).append("\n");
+            }
+            ResultadoTextArea.setText(resultado.toString());
+        }
+    }//GEN-LAST:event_BtIniciarSimulacionActionPerformed
+    
+    private void cargarJugadores(){
+        SimulacionFutbol.cargarJugadores("jugadores.csv", campo);
+        SimulacionFutbol.cargarMatrizDeAdyacencia("matriz.csv", campo);
+    }
     /**
      * @param args the command line arguments
      */
@@ -120,8 +218,18 @@ public class Cancha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtIniciarSimulacion;
+    private javax.swing.JButton BtListaJugadores;
     private javax.swing.JButton BtRegresar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField EstrategiaTextField;
+    private javax.swing.JTextField Jugador1TextField;
+    private javax.swing.JTextField Jugador2TextField;
+    private javax.swing.JTextArea ResultadoTextArea;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private java.awt.Label label1;
+    private java.awt.Label label2;
+    private java.awt.Label label3;
+    private java.awt.Label label4;
     // End of variables declaration//GEN-END:variables
 }

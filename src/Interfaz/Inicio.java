@@ -36,7 +36,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("BIENVENIDOS");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 100, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 80, 30));
 
         BtInicio.setText("Inicio");
         BtInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -44,7 +44,7 @@ public class Inicio extends javax.swing.JFrame {
                 BtInicioActionPerformed(evt);
             }
         });
-        jPanel1.add(BtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, -1, -1));
+        jPanel1.add(BtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, -1, -1));
 
         BtSalir.setText("Salir");
         BtSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -52,37 +52,31 @@ public class Inicio extends javax.swing.JFrame {
                 BtSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(BtSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, -1, -1));
+        jPanel1.add(BtSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtInicioActionPerformed
-      this.setVisible(false);
-      
-      Cancha C = new Cancha();
-      C.setVisible(true);
+        this.setVisible(false);
+
+        Cancha BtCancha = new Cancha();
+        BtCancha.setVisible(true);
     }//GEN-LAST:event_BtInicioActionPerformed
 
     private void BtSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSalirActionPerformed
-        System.exit(WIDTH);
+        System.exit(0);
     }//GEN-LAST:event_BtSalirActionPerformed
 
     /**
