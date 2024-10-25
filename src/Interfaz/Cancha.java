@@ -43,9 +43,7 @@ public class Cancha extends javax.swing.JFrame {
         BtIniciarSimulacion = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ResultadoTextArea = new javax.swing.JTextArea();
-        label1 = new java.awt.Label();
-        label3 = new java.awt.Label();
-        label4 = new java.awt.Label();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,53 +53,52 @@ public class Cancha extends javax.swing.JFrame {
         BtRegresar.setToolTipText("");
         BtRegresar.setBorderPainted(false);
         BtRegresar.setContentAreaFilled(false);
+        BtRegresar.setFocusable(false);
         BtRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(BtRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, -1, -1));
 
         BtListaJugadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/JugadorFutbolIcono.png"))); // NOI18N
         BtListaJugadores.setBorderPainted(false);
         BtListaJugadores.setContentAreaFilled(false);
+        BtListaJugadores.setFocusable(false);
         BtListaJugadores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtListaJugadoresActionPerformed(evt);
             }
         });
-        jPanel1.add(BtListaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        jPanel1.add(BtListaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, -1, -1));
 
         Jugador1TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Jugador1TextFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(Jugador1TextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 120, -1));
-        jPanel1.add(EstrategiaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 120, -1));
+        jPanel1.add(Jugador1TextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 150, 40));
+        jPanel1.add(EstrategiaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, 150, 40));
 
-        BtIniciarSimulacion.setText("Simular!");
+        BtIniciarSimulacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SimulacionlButton.png"))); // NOI18N
+        BtIniciarSimulacion.setBorderPainted(false);
+        BtIniciarSimulacion.setContentAreaFilled(false);
+        BtIniciarSimulacion.setFocusable(false);
         BtIniciarSimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtIniciarSimulacionActionPerformed(evt);
             }
         });
-        jPanel1.add(BtIniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, 20));
+        jPanel1.add(BtIniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, -1, 120));
 
         ResultadoTextArea.setColumns(20);
         ResultadoTextArea.setRows(5);
         jScrollPane1.setViewportView(ResultadoTextArea);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, -1, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, -1, -1));
 
-        label1.setText("Jugador");
-        jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 110, -1));
-
-        label3.setText("Estrategia");
-        jPanel1.add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, -1, -1));
-
-        label4.setText("Resultado:");
-        jPanel1.add(label4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/CanchaFutbol1.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 460));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,7 +108,7 @@ public class Cancha extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -213,10 +210,8 @@ public class Cancha extends javax.swing.JFrame {
     private javax.swing.JTextField EstrategiaTextField;
     private javax.swing.JTextField Jugador1TextField;
     private javax.swing.JTextArea ResultadoTextArea;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.awt.Label label1;
-    private java.awt.Label label3;
-    private java.awt.Label label4;
     // End of variables declaration//GEN-END:variables
 }
