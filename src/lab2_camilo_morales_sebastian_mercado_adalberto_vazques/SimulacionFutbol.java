@@ -18,77 +18,10 @@ public class SimulacionFutbol {
 
         System.out.println("Directorio actual: " + new File(".").getAbsolutePath());  // Debug para verificar la ruta de archivos CSV
 
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Simulacion de Movimiento Tactico en un Equipo de Futbol");
-
-        while (true) {
-            String inicio;
-            String estrategia;
-            String continuar;
-
-            // Validación para el jugador inicial
-            while (true) {
-                System.out.print("Ingrese el nombre del jugador inicial: ");
-                inicio = scanner.nextLine();
-                if (campo.obtenerJugador(inicio) != null) {  // Verificar que el jugador exista
-                    break;
-                } else {
-                    System.out.println("Jugador no encontrado. Por favor, ingrese un nombre valido.");
-                }
-            }
-
-            // Validación para la estrategia
-            while (true) {
-                System.out.print("Ingrese la estrategia (velocidad, posesion, remate): ");
-                estrategia = scanner.nextLine();
-                if (estrategia.equalsIgnoreCase("velocidad")
-                        || estrategia.equalsIgnoreCase("posesion")
-                        || estrategia.equalsIgnoreCase("remate")) {
-                    break;
-                } else {
-                    System.out.println("Estrategia no valida. Por favor, ingrese una de las siguientes opciones: velocidad, posesion, remate.");
-                }
-            }
-            campo.establecerEstrategia(estrategia);
-            List<Jugador> camino = campo.calcularCaminoOptimo(inicio, estrategia);
-
-            if (camino.isEmpty()) {
-                System.out.println("No se encontro un camino.");
-            } else {
-                System.out.println("Camino optimo:");
-                for (Jugador jugador : camino) {
-                    System.out.println(jugador);
-                }
-            }
-
-            // Validación para continuar o finalizar la simulación
-            while (true) {
-                System.out.print("Desea realizar otra simulacion? (si/no): ");
-                continuar = scanner.nextLine();
-                if (continuar.equalsIgnoreCase("si") || continuar.equalsIgnoreCase("no")) {
-                    break;
-                } else {
-                    System.out.println("Respuesta no valida. Por favor, ingrese 'si' o 'no'.");
-                }
-            }
-
-            if (continuar.equalsIgnoreCase("no")) {
-                break;  // Finalizar el ciclo si la respuesta es "no"
-            }
-        }
     }
     // Método para cargar los jugadores desde un archivo CSV
 
     public static void cargarJugadores(String archivo, Campo campo) {
-        //Colores
-        String ANSI_GREEN = "\033[32;1m";
-        String ANSI_RED = "\u001B[31m";
-        String reset = "\033[0m";
-        String ANSI_YELLOW = "\u001B[33m";
-        //
-
-        System.out.println("Lista de jugadores disponibles:");
 
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
@@ -104,10 +37,6 @@ public class SimulacionFutbol {
                     // Crear y agregar el jugador al campo
                     Jugador jugador = new Jugador(nombre, velocidad, remate, posesion);
                     campo.agregarJugador(jugador);
-                    System.out.println("Jugador cargado: " + nombre);  // Depuración
-
-                    // Imprimir en consola los detalles del jugador
-                    System.out.println("Jugador: " + nombre + " [" + ANSI_RED + "| Velocidad: " + velocidad + " | " + reset + "- " + ANSI_YELLOW + "| Remate: " + remate + " | " + reset + "- " + ANSI_GREEN + "| Posesion: " + posesion + " | " + reset + "]");
 
                 }
             }
@@ -128,7 +57,7 @@ public class SimulacionFutbol {
                     if (datos[i].equals("1")) {
                         String nombreVecino = campo.obtenerJugadorPorIndice(i - 1);
                         campo.agregarConexion(jugador, nombreVecino);
-                        System.out.println("Conexion establecida: " + jugador + " -> " + nombreVecino);  // Depuración
+
                     }
                 }
             }

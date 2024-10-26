@@ -66,10 +66,7 @@ public class Campo {
         if (jugadorInicio == null || porteria == null) {
             System.out.println("Jugador o porteria no encontrado.");
             return new ArrayList<>();
-        } else {
-            System.out.println("sirve?");
-        }
-
+        } 
         //Se aplica Dijkstra
         List<Jugador> camino = buscarCaminoDijkstra(jugadorInicio, porteria, estrategia);
 
@@ -108,8 +105,7 @@ public class Campo {
                 continue;
             }
 
-            // Depuración: Imprimir el jugador que se está procesando
-            System.out.println("Procesando jugador: " + actual.getNombre());
+            
 
             // Si llegamos a la portería, terminamos
             if (actual.equals(porteria)) {
@@ -118,7 +114,7 @@ public class Campo {
 
             // Explorar las conexiones (vecinos) del jugador actual
             for (Jugador vecino : actual.getConexiones()) {
-                System.out.println("Vecino: " + vecino.getNombre());  // Depuración
+                
 
                 if (visitados.contains(vecino)) {
                     continue;
@@ -134,28 +130,28 @@ public class Campo {
                     predecesores.put(vecino, actual);
                     cola.add(vecino);
 
-                    System.out.println("Actualizando distancia para " + vecino.getNombre() + " a " + nuevaDistancia);
-                    System.out.println("Predecesor de " + vecino.getNombre() + " es " + actual.getNombre());
+//                    System.out.println("Actualizando distancia para " + vecino.getNombre() + " a " + nuevaDistancia);
+//                    System.out.println("Predecesor de " + vecino.getNombre() + " es " + actual.getNombre());
 
                 }
             }
         }
-        System.out.println("Distancias finales:");
-        for (Map.Entry<Jugador, Double> entry : distancias.entrySet()) {
-            System.out.println("Jugador: " + entry.getKey().getNombre() + ", Distancia: " + entry.getValue());
-        }
-
-        System.out.println("Predecesores finales:");
-        for (Map.Entry<Jugador, Jugador> entry : predecesores.entrySet()) {
-            System.out.println("Jugador: " + entry.getKey().getNombre() + ", Predecesor: "
-                    + (entry.getValue() != null ? entry.getValue().getNombre() : "null"));
-        }
+//        System.out.println("Distancias finales:");
+//        for (Map.Entry<Jugador, Double> entry : distancias.entrySet()) {
+//            System.out.println("Jugador: " + entry.getKey().getNombre() + ", Distancia: " + entry.getValue());
+//        }
+//
+//        System.out.println("Predecesores finales:");
+//        for (Map.Entry<Jugador, Jugador> entry : predecesores.entrySet()) {
+//            System.out.println("Jugador: " + entry.getKey().getNombre() + ", Predecesor: "
+//                    + (entry.getValue() != null ? entry.getValue().getNombre() : "null"));
+//        }
 
         // Reconstruir el camino desde la portería hacia el inicio usando el mapa de predecesores
         List<Jugador> camino = new ArrayList<>();
         for (Jugador at = porteria; at != null; at = predecesores.get(at)) {
             camino.add(at);
-            System.out.println("Aniadiendo al camino: " + at.getNombre());
+            
         }
 
         // Si no hay camino, devolver una lista vacía
