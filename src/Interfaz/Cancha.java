@@ -44,6 +44,7 @@ public class Cancha extends javax.swing.JFrame {
         BtIniciarSimulacion = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ResultadoTextArea = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,7 +61,7 @@ public class Cancha extends javax.swing.JFrame {
                 BtRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, -1, -1));
+        jPanel1.add(BtRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
 
         BtListaJugadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/JugadorFutbolIcono.png"))); // NOI18N
         BtListaJugadores.setBorderPainted(false);
@@ -71,7 +72,7 @@ public class Cancha extends javax.swing.JFrame {
                 BtListaJugadoresActionPerformed(evt);
             }
         });
-        jPanel1.add(BtListaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 407, 50, 50));
+        jPanel1.add(BtListaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 50, 50));
 
         BtCanchaJugadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoCancha.png"))); // NOI18N
         BtCanchaJugadores.setBorderPainted(false);
@@ -82,7 +83,7 @@ public class Cancha extends javax.swing.JFrame {
                 BtCanchaJugadoresActionPerformed(evt);
             }
         });
-        jPanel1.add(BtCanchaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, -1));
+        jPanel1.add(BtCanchaJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 400, -1, -1));
 
         Jugador1TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,14 +111,17 @@ public class Cancha extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, 320, 140));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gifs/ConfettiGif.gif"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 190, 180));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/CanchaFutbol1.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 460));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 460));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,6 +242,7 @@ public class Cancha extends javax.swing.JFrame {
     private javax.swing.JTextField Jugador1TextField;
     private javax.swing.JTextArea ResultadoTextArea;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

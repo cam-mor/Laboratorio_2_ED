@@ -66,7 +66,7 @@ public class Campo {
         if (jugadorInicio == null || porteria == null) {
             System.out.println("Jugador o porteria no encontrado.");
             return new ArrayList<>();
-        } 
+        }
         //Se aplica Dijkstra
         List<Jugador> camino = buscarCaminoDijkstra(jugadorInicio, porteria, estrategia);
 
@@ -78,7 +78,6 @@ public class Campo {
                 System.out.println("En el camino: " + jugador.getNombre());
             }
         }
-
         return camino;
     }
 
@@ -105,8 +104,6 @@ public class Campo {
                 continue;
             }
 
-            
-
             // Si llegamos a la portería, terminamos
             if (actual.equals(porteria)) {
                 break;
@@ -114,12 +111,10 @@ public class Campo {
 
             // Explorar las conexiones (vecinos) del jugador actual
             for (Jugador vecino : actual.getConexiones()) {
-                
 
                 if (visitados.contains(vecino)) {
                     continue;
                 }
-
                 // Calculamos el "peso" de la conexión según la estrategia
                 double peso = calcularPeso(actual, vecino, estrategia);
 
@@ -128,32 +123,17 @@ public class Campo {
                 if (nuevaDistancia < distancias.get(vecino)) {
                     distancias.put(vecino, nuevaDistancia);
                     predecesores.put(vecino, actual);
-                    cola.add(vecino);
-
-//                    System.out.println("Actualizando distancia para " + vecino.getNombre() + " a " + nuevaDistancia);
-//                    System.out.println("Predecesor de " + vecino.getNombre() + " es " + actual.getNombre());
+                    cola.add(vecino);//                    
 
                 }
             }
         }
-//        System.out.println("Distancias finales:");
-//        for (Map.Entry<Jugador, Double> entry : distancias.entrySet()) {
-//            System.out.println("Jugador: " + entry.getKey().getNombre() + ", Distancia: " + entry.getValue());
-//        }
-//
-//        System.out.println("Predecesores finales:");
-//        for (Map.Entry<Jugador, Jugador> entry : predecesores.entrySet()) {
-//            System.out.println("Jugador: " + entry.getKey().getNombre() + ", Predecesor: "
-//                    + (entry.getValue() != null ? entry.getValue().getNombre() : "null"));
-//        }
 
         // Reconstruir el camino desde la portería hacia el inicio usando el mapa de predecesores
         List<Jugador> camino = new ArrayList<>();
         for (Jugador at = porteria; at != null; at = predecesores.get(at)) {
             camino.add(at);
-            
         }
-
         // Si no hay camino, devolver una lista vacía
         if (camino.isEmpty() || camino.get(camino.size() - 1) != inicio) {
             System.out.println("No se pudo reconstruir el camino desde la porteria.");
@@ -166,17 +146,17 @@ public class Campo {
     }
 
     private double calcularPeso(Jugador actual, Jugador vecino, String estrategia) {
-    switch (estrategia.toLowerCase()) {
-        case "velocidad":
-            return vecino.getNombre().equals("Porteria") ? 0.5 : (100.0 / vecino.getVelocidad());
-        case "posesion":
-            return vecino.getNombre().equals("Porteria") ? 0.5 : (100.0 / vecino.getPosesion());
-        case "remate":
-            return vecino.getNombre().equals("Porteria") ? 0.5 : (100.0 / vecino.getRemate());
-        default:
-            return 1.0;  // Peso uniforme si la estrategia no coincide
+        switch (estrategia.toLowerCase()) {
+            case "velocidad":
+                return vecino.getNombre().equals("Porteria") ? 0.5 : (100.0 / vecino.getVelocidad());
+            case "posesion":
+                return vecino.getNombre().equals("Porteria") ? 0.5 : (100.0 / vecino.getPosesion());
+            case "remate":
+                return vecino.getNombre().equals("Porteria") ? 0.5 : (100.0 / vecino.getRemate());
+            default:
+                return 1.0;  // Peso uniforme si la estrategia no coincide
+        }
     }
-}
 
     public Jugador obtenerJugador(String nombreJugador) {
         return grafo.get(nombreJugador);  // Devuelve el jugador si existe, o null si no está en el grafo

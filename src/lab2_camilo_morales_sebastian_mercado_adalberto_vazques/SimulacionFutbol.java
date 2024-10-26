@@ -2,7 +2,6 @@ package lab2_camilo_morales_sebastian_mercado_adalberto_vazques;
 
 import Interfaz.Inicio;
 import java.io.*;
-import java.util.*;
 
 public class SimulacionFutbol {
 
@@ -14,13 +13,13 @@ public class SimulacionFutbol {
         cargarJugadores("jugadores.csv", campo);
         cargarMatrizDeAdyacencia("matriz.csv", campo);
         agregarPorteria(campo);  // Añadir nodo "Porteria" y conexiones
-        campo.imprimirGrafo();
+        campo.imprimirGrafo(); // Imprime el grafo
 
         System.out.println("Directorio actual: " + new File(".").getAbsolutePath());  // Debug para verificar la ruta de archivos CSV
 
     }
-    // Método para cargar los jugadores desde un archivo CSV
 
+    // Método para cargar los jugadores desde el archivo CSV
     public static void cargarJugadores(String archivo, Campo campo) {
 
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
@@ -45,7 +44,7 @@ public class SimulacionFutbol {
         }
     }
 
-    // Método para cargar la matriz de adyacencia desde un archivo CSV
+    // Método para cargar la matriz de adyacencia desde el archivo CSV
     public static void cargarMatrizDeAdyacencia(String archivo, Campo campo) {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
@@ -66,6 +65,7 @@ public class SimulacionFutbol {
         }
     }
 
+    // Método que agrega una portería como "jugador" especial
     public static void agregarPorteria(Campo campo) {
         Jugador porteria = new Jugador("Porteria", 0, 0, 0);  // Nodo especial sin atributos
         campo.agregarJugador(porteria);
